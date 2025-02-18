@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container min-h-screen bg-[url('image/backgroud.png')]">
         <nav>
             <img src="image/logo.png" alt="">
             <ul>
