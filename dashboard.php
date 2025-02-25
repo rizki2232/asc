@@ -10,14 +10,14 @@
 </head>
 
 <body>
-    <div class="container min-h-screen bg-[url('image/backgroud.png')]">
-        <nav>
+    <div class="container min-h-screen bg-[url('image/backgroud.png')] bg-center bg-cover">
+        <nav class="flex items-center">
             <img src="image/logo.png" alt="">
-            <ul>
-                <li><a href="">BERANDA</a></li>
-                <li><a href="">PROFILE</a></li>
-                <li><a href="">PARTNERSHIP</a></li>
-                <li><a href="">SERVICE</a></li>
+            <ul class="flex-1 items-center">
+                <li class="list-none inline-block px-5"><a href="" class="no-underline text-white px-2" >BERANDA</a></li>
+                <li class="list-none inline-block px-5"><a href="" class="no-underline text-white px-2">PROFILE</a></li>
+                <li class="list-none inline-block px-5"><a href="" class="no-underline text-white px-2">PARTNERSHIP</a></li>
+                <li class="list-none inline-block px-5"><a href="" class="no-underline text-white px-2">SERVICE</a></li>
             </ul>
         </nav>
     </div>
