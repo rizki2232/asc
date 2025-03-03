@@ -23,7 +23,7 @@
                 <li><a href="#" class="text-white hover:text-gray-300">BERANDA</a></li>
                 <li><a href="#" class="text-white hover:text-gray-300">PROFILE</a></li>
                 <li><a href="#" class="text-white hover:text-gray-300">PARTNERSHIP</a></li>
-                <li><a href="#" class="text-white hover:text-gray-300">SERVICE</a></li>
+                <li><a href="#" class="text-white hover:text-gray-300">SERVICEZZZ</a></li>
             </ul>
         </div>
     </nav>
