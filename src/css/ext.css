@@ -1,0 +1,19 @@
+.main {
+    --border-width: 1px;
+    --margin: .5rem;
+    --background-color: #fff
+}
+
+.main {
+    background-color: var(--background-color);
+    position: absolute;
+    height: auto;
+    width: auto;
+    overflow: auto;
+    border-radius: calc(var(--margin) - var(--border-width));
+    inset-inline: calc(var(--margin) + var(--border-width));
+    inset-block-start: calc(64px + var(--border-width));
+    inset-block-end: calc(var(--margin) + var(--border-width));
+    max-width: none;
+    --border-color: rgba(var(--gray-950), 5%)
+}

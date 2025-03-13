@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $conn->query($query);
         $url = $_SERVER['REQUEST_URI'];
         $parts = explode('/', $url);
-        $new_url = $parts[0].'/'.$parts[1].'/admin/dashboardAdmin.php';
+        $new_url = '/admin';
         // echo $new_url;
 
         if ($result->num_rows == 1) {
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location: " . $new_url);
         } else {
             $loginError = "Login gagal. Cek username dan password.";
-            header("Location: login.php?error=Incorect User name or password");
+            header("Location: index.php?error=Incorect User name or password");
             exit();
         }
     }
