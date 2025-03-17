@@ -17,8 +17,8 @@ $links = [
         'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>'
     ],
     [
-        'title' => 'Artikel',
-        'route' => '/admin/artikel/',
+        'title' => 'Post',
+        'route' => '/admin/post/',
         'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect x="10" y="6" width="8" height="4" rx="1"/></svg>'
     ]
 ];
@@ -30,7 +30,7 @@ $current_page = $_SERVER['REQUEST_URI'];
 
 </div>
 <div x-show="open" x-on:click="open = false" class="fixed inset-0 z-30 bg-gray-950/75 transition duration-500 lg:hidden" x-transition.opacity.300ms></div>
-<aside :class="open ? 'fi-sidebar-open w-[--sidebar-width] translate-x-0 shadow-xl ring-1 ring-gray-950\/5 dark:ring-white\/10 rtl:-translate-x-0 lg:sticky' : 'w-[--sidebar-width] -translate-x-full rtl:translate-x-full lg:sticky'" class="w-80 fixed inset-y-0 start-0 z-30 flex flex-col h-screen content-start bg-white transition-all lg:z-0 lg:bg-transparent lg:shadow-none lg:ring-0 lg:transition-none lg:translate-x-0 lg:sticky"
+<aside :class="open ? 'w-[--sidebar-width] translate-x-0 shadow-xl rtl:-translate-x-0 lg:sticky' : 'w-[--sidebar-width] -translate-x-full rtl:translate-x-full lg:sticky'" class="w-80 fixed inset-y-0 start-0 z-30 flex flex-col h-screen content-start bg-white transition-all lg:z-0 lg:bg-transparent lg:shadow-none lg:ring-0 lg:transition-none lg:translate-x-0 lg:sticky"
     x-transition:enter="transition duration-300"
     x-transition:enter-start="-translate-x-full"
     x-transition:enter-end="translate-x-0"
@@ -50,8 +50,8 @@ $current_page = $_SERVER['REQUEST_URI'];
     </div>
     <div class="flex flex-col flex-grow gap-y-7 overflow-x-hidden overflow-y-auto px-6 py-8" style="scrollbar-gutter: stable">
         <ul class="-mx-2 flex flex-col gap-y-1 h-auto">
-            <?php foreach ($links as $key => $link) :
-                // $isActive = ($current_page === $link['route']) ? $active : $inactive;
+            <?php
+            foreach ($links as $key => $link) :
                 $isActive = ($current_page === $link['route']);
             ?>
                 <li class="">
@@ -65,7 +65,6 @@ $current_page = $_SERVER['REQUEST_URI'];
                     </a>
                 </li>
             <?php
-            // echo $current_page;
             endforeach;
             ?>
         </ul>

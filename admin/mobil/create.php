@@ -1,6 +1,8 @@
 <?php
 
-require_once "../koneksi.php";
+require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
 
 $query = "SELECT * FROM brands";
 $result = $conn->query($query);
@@ -56,13 +58,15 @@ $result = $conn->query($query);
                     <label for="quantity" class="block text-sm font-medium text-gray-700">Jumlah Mobil</label>
                     <input type="number" id="quantity" name="quantity" required min="1" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Simpan</button>
+                <button type="submit" class="w-full font-semibold bg-primary/90 text-white py-2 px-4 rounded-md hover:bg-primary cursor-pointer">Simpan</button>
             </form>
         </div>
 
         <?php
-        include '../koneksi.php';
-
+        require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+        $db = new Database();
+        $conn = $db->conn;
+        
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $brand_id = $_POST['brand_id'];  // Ambil ID merek yang dipilih
             $type = $_POST['type'];

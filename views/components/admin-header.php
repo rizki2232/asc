@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="/src/css/ext.css">
     <link rel="stylesheet" href="/src/css/app.css" />
     <script src="/src/js/alpine.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 </head>
 
 <body class="min-h-screen bg-gray-50 font-normal text-gray-950 antialiased">

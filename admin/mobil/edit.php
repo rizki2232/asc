@@ -1,6 +1,8 @@
 <?php
 
-require_once "../koneksi.php";
+require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
 
 $id = $_GET['id'];
 
@@ -68,7 +70,7 @@ $brandResult = $conn->query($brandQuery);
                     <input type="number" id="quantity" name="quantity" value="<?= htmlspecialchars($data['quantity']) ?>" required min="1" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
                 </div>
 
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Update</button>
+                <button type="submit" class="w-full font-semibold bg-primary/90 text-white py-2 px-4 rounded-md hover:bg-primary cursor-pointer">Perbarui</button>
             </form>
         </div>
     </section>

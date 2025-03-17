@@ -15,7 +15,7 @@
     <main class="min-h-screen overflow-x-hidden">
         <section class="h-64 flex items-center justify-center backdrop-opacity-25 bg-[url('https://images.unsplash.com/photo-1565891741441-64926e441838?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center">
             <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/80 to-secondary/80">
-                <div class="mt-16 text-center text-3xl font-extrabold">
+                <div class="mt-16 text-center text-3xl font-extrabold text-white">
                     Profil Perusahaan
                 </div>
             </div>

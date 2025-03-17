@@ -5,7 +5,7 @@
         <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-                    Dashboardd
+                    Dashboard
                 </h1>
             </div>
             <!-- <div class="flex shrink-0 items-center gap-3">

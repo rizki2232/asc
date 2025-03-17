@@ -4,18 +4,10 @@ require_once dirname(__DIR__, 2) . '/src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
-$query = "SELECT 
-        cars.id,
-        brands.name AS brand_name,
-        cars.type, 
-        cars.color, 
-        cars.year, 
-        cars.date
-        FROM cars 
-        JOIN brands ON cars.brand_id = brands.id;";
+$query = "SELECT * FROM posts";
 $result = $conn->query($query);
 
-$thead = ['No', 'Merek', 'Jenis', 'Warna', 'Tahun', 'Tanggal Masuk'];
+$thead = ['No', 'Judul', 'Tanggal Diterbitkan'];
 $no = 1;
 
 ?>
@@ -27,13 +19,13 @@ $no = 1;
         <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-                    Mobil
+                    Post
                 </h1>
             </div>
             <div class="flex shrink-0 items-center gap-3">
                 <div class="gap-2 flex flex-wrap items-center justify-start">
-                    <a href="/admin/mobil/create.php" class="relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg bg-primary gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-custom-600 text-white hover:bg-custom-500 focus-visible:ring-custom-500/50 dark:bg-custom-500 dark:hover:bg-custom-400 dark:focus-visible:ring-custom-400/50 xpc fi-ac-btn-action">
-                        <span>Tambah mobil</span>
+                    <a href="/admin/post/create.php" class="relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg bg-primary gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-custom-600 text-white hover:bg-custom-500 focus-visible:ring-custom-500/50 dark:bg-custom-500 dark:hover:bg-custom-400 dark:focus-visible:ring-custom-400/50 xpc fi-ac-btn-action">
+                        <span>Tambah post</span>
                     </a>
                 </div>
             </div>
@@ -46,7 +38,7 @@ $no = 1;
                             <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <input type="text" class="w-full px-3 py-1.5 ps-0 pe-3 text-base placeholder:text-gray-400 focus:outline-0 sm:text-sm sm:leading-6" placeholder="Cari mobil">
+                    <input type="text" class="w-full px-3 py-1.5 ps-0 pe-3 text-base placeholder:text-gray-400 focus:outline-0 sm:text-sm sm:leading-6" placeholder="Cari post">
                 </div>
             </div>
             <div class="relative divide-y divide-gray-200 overflow-x-auto">
@@ -77,35 +69,14 @@ $no = 1;
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
                                         <a href="edit.php?id=<?php echo $row['id']; ?>">
                                             <div class="px-3 py-4">
-                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['brand_name']; ?></span>
+                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['title']; ?></span>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
                                         <a href="edit.php?id=<?php echo $row['id']; ?>">
                                             <div class="px-3 py-4">
-                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['type']; ?></span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id']; ?>">
-                                            <div class="px-3 py-4">
-                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['color']; ?></span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id']; ?>">
-                                            <div class="px-3 py-4">
-                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['year']; ?></span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id']; ?>">
-                                            <div class="px-3 py-4">
-                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= date("d/m/Y", strtotime($row['date'])); ?></span>
+                                                <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= date('d/m/Y', strtotime($row['published_at'])) ?></span>
                                             </div>
                                         </a>
                                     </td>

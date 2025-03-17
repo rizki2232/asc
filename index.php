@@ -1,3 +1,14 @@
+<?php
+
+require_once 'src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
+
+$query = "SELECT * FROM posts ORDER BY published_at DESC LIMIT 3";
+$result = $conn->query($query);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,9 +23,9 @@
 <body>
     <?php include __DIR__ . "/views/components/header.php" ?>
 
-    <div class="relative min-h-screen flex items-start bg-[url('../img/background.png')] bg-center bg-cover bg-no-repeat md:items-center">
+    <div class="relative min-h-screen flex items-start bg-[url('../img/background.png')] bg-center bg-cover bg-no-repeat md:items-center overflow-hidden">
         <div class="container mx-auto flex flex-col md:flex-row items-start md:items-center justify-between w-10/12 px-4 pt-24 relative">
-            <div class="text-left text-white z-40">
+            <div class="text-left text-white">
                 <h1 class="text-5xl font-bold leading-tight">Delivering Trust,</h1>
                 <h1 class="text-5xl font-bold leading-tight">
                     <span class="text-yellow-400">Connecting</span> the Future
@@ -30,6 +41,36 @@
             </svg>
         </div>
     </div>
+
+    <section class="container px-8 py-10 lg:py-14 mx-auto">
+        <div class="text-center text-3xl font-extrabold mb-6">
+            Artikel Terbaru
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <!-- Card -->
+                 <a href="post.php?id=<?= $row['id'] ?>">
+                     <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                         <div class="h-52 flex flex-col justify-center items-center bg-[url('../img/background.png')] bg-center bg-cover bg-no-repeat rounded-t-xl">
+     
+                         </div>
+                         <div class="p-4 md:p-6">
+                             <span class="block mb-1 text-xs font-semibold uppercase text-gray-600 dark:text-gray-500">
+                                 <?= date('d-m-Y', strtotime($row['published_at'])) ?>
+                             </span>
+                             <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                                 <?= htmlspecialchars($row['title']) ?>
+                             </h3>
+                             <p class="mt-3 text-gray-500 dark:text-neutral-500 line-clamp-2">
+                                 <?= htmlspecialchars_decode(strip_tags($row['body'])) ?>
+                             </p>
+                         </div>
+                     </div>
+                 </a>
+                <!-- End Card -->
+            <?php endwhile; ?>
+        </div>
+    </section>
 
     <?php include __DIR__ . "/views/components/footer.php" ?>
 </body>

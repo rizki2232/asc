@@ -1,6 +1,8 @@
 <?php
 
-require_once "../koneksi.php";
+require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
 
 $query = "SELECT * FROM brands";
 $result = $conn->query($query);

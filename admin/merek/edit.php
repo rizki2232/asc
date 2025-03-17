@@ -1,6 +1,8 @@
 <?php
 
-require_once "../koneksi.php";
+require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
 
 $data = $_GET['id'];
 
@@ -28,7 +30,7 @@ $data = $result->fetch_assoc();
                     <label for="name" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
                     <input type="text" id="name" name="name" value="<?= htmlspecialchars($data['name']) ?>" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Simpan</button>
+                <button type="submit" class="w-full font-semibold bg-primary/90 text-white py-2 px-4 rounded-md hover:bg-primary cursor-pointer">Perbarui</button>
             </form>
         </div>
     </section>

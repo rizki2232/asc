@@ -1,5 +1,7 @@
 <?php
-require_once("../koneksi.php");
+require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

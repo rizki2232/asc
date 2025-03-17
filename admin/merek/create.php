@@ -1,6 +1,8 @@
 <?php
 
-require_once "../koneksi.php";
+require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+$db = new Database();
+$conn = $db->conn;
 
 $query = "SELECT 
         cars.id,
@@ -35,12 +37,14 @@ $no = 1;
                     <label for="brand" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
                     <input type="text" id="brand" name="brand" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Simpan</button>
+                <button type="submit" class="w-full font-semibold bg-primary/90 text-white py-2 px-4 rounded-md hover:bg-primary cursor-pointer">Simpan</button>
             </form>
 
             <?php
-            include '../koneksi.php';
-
+            require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+            $db = new Database();
+            $conn = $db->conn;
+            
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $data = $_POST['brand'];
 
