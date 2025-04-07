@@ -5,14 +5,14 @@ $db = new Database();
 $conn = $db->conn;
 
 $query = "SELECT 
-        cars.id,
+        cars.id_cars,
         brands.name AS brand_name,
         cars.type, 
         cars.color, 
         cars.year, 
         cars.date
         FROM cars 
-        JOIN brands ON cars.brand_id = brands.id;";
+        JOIN brands ON cars.brand_id = brands.id_brands;";
 $result = $conn->query($query);
 
 $thead = ['No', 'Merek', 'Jenis', 'Warna', 'Tahun', 'Tanggal Masuk'];

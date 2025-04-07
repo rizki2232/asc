@@ -23,13 +23,13 @@ $result = $conn->query($query);
         <div class="">
             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="space-y-4">
                 <div>
-                    <label for="brand_id" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
-                    <select id="brand_id" name="brand_id" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <label for="id_brands" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
+                    <select id="id_brands" name="id_brands" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                         <option value="" disabled selected>Pilih Merek Mobil</option>
                         <?php
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";
+                                echo "<option value='" . $row['id_brands'] . "'>" . $row['name'] . "</option>";
                             }
                         } else {
                             echo "<option value='' disabled>Tidak ada data</option>";
@@ -68,7 +68,7 @@ $result = $conn->query($query);
         $conn = $db->conn;
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $brand_id = $_POST['brand_id'];  // Ambil ID merek yang dipilih
+            $id_brands = $_POST['id_brands'];  // Ambil ID merek yang dipilih
             $type = $_POST['type'];
             $color = $_POST['color'];
             $quantity = $_POST['quantity'];
@@ -80,9 +80,9 @@ $result = $conn->query($query);
                 echo '<div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">Jumlah mobil harus lebih dari 0</div>';
             } else {
                 // Perbaiki query INSERT agar sesuai dengan database
-                $sql = "INSERT INTO cars (id, brand_id, type, color, quantity, year, date) 
-                         VALUES (NULL, '$brand_id', '$type', '$color', '$quantity', '$year', '$date')";
-                if ($conn->query($sql) === TRUE) {
+                $sql = "INSERT INTO cars (id_cars, id_brands, type, color, quantity, year, date) 
+                         VALUES (NULL, '$id_brands', '$type', '$color', '$quantity', '$year', '$date')";
+                if ($conn->query($sql) === TRUE) {  
                     echo '<div class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">Data berhasil disimpan</div>';
                 } else {
                     echo '<div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">Error: ' . $conn->error . '</div>';

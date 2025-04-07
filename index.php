@@ -1,12 +1,10 @@
 <?php
-
 require_once 'src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
 $query = "SELECT * FROM posts ORDER BY published_at DESC LIMIT 3";
 $result = $conn->query($query);
-
 ?>
 
 <!DOCTYPE html>
@@ -48,26 +46,23 @@ $result = $conn->query($query);
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php while ($row = $result->fetch_assoc()): ?>
-                <!-- Card -->
-                 <a href="post.php?id=<?= $row['id'] ?>">
-                     <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-                         <div class="h-52 flex flex-col justify-center items-center bg-[url('../img/background.png')] bg-center bg-cover bg-no-repeat rounded-t-xl">
-     
-                         </div>
-                         <div class="p-4 md:p-6">
-                             <span class="block mb-1 text-xs font-semibold uppercase text-gray-600 dark:text-gray-500">
-                                 <?= date('d-m-Y', strtotime($row['published_at'])) ?>
-                             </span>
-                             <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                                 <?= htmlspecialchars($row['title']) ?>
-                             </h3>
-                             <p class="mt-3 text-gray-500 dark:text-neutral-500 line-clamp-2">
-                                 <?= htmlspecialchars_decode(strip_tags($row['body'])) ?>
-                             </p>
-                         </div>
-                     </div>
-                 </a>
-                <!-- End Card -->
+                <a href="post.php?id=<?= $row['id_posts'] ?>">
+                    <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                        <div class="h-52 w-full bg-cover bg-center rounded-t-xl" style="background-image: url('uploads/<?= htmlspecialchars($row['img']) ?>');"></div>
+
+                        <div class="p-4 md:p-6">
+                            <span class="block mb-1 text-xs font-semibold uppercase text-gray-600 dark:text-gray-500">
+                                <?= date('d-m-Y', strtotime($row['published_at'])) ?>
+                            </span>
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                                <?= htmlspecialchars($row['title']) ?>
+                            </h3>
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500 line-clamp-2">
+                                <?= htmlspecialchars_decode(strip_tags($row['body'])) ?>
+                            </p>
+                        </div>
+                    </div>
+                </a>
             <?php endwhile; ?>
         </div>
     </section>

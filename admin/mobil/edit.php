@@ -4,10 +4,10 @@ require_once dirname(__DIR__, 2) . '/src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
-$id = $_GET['id'];
+$id = $_GET['id_cars'];
 
 // Ambil data mobil berdasarkan ID
-$query = "SELECT * FROM cars WHERE id = '$id'";
+$query = "SELECT * FROM cars WHERE id_cars = '$id'";
 $result = $conn->query($query);
 $data = $result->fetch_assoc();
 
@@ -30,16 +30,16 @@ $brandResult = $conn->query($brandQuery);
         </header>
         <div class="">
             <form method="post" action="update.php" class="space-y-4">
-                <input type="hidden" name="id" value="<?= htmlspecialchars($data['id']) ?>">
+                <input type="hidden" name="id_cars" value="<?= htmlspecialchars($data['id_cars']) ?>">
 
                 <div>
-                    <label for="brand_id" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
-                    <select id="brand_id" name="brand_id" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <label for="id_brands" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
+                    <select id="id_brands" name="id_brands" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                         <option value="" disabled>Pilih Merek Mobil</option>
                         <?php
                         while ($row = $brandResult->fetch_assoc()) {
-                            $selected = ($row['id'] == $data['brand_id']) ? "selected" : "";
-                            echo "<option value='" . $row['id'] . "' $selected>" . $row['name'] . "</option>";
+                            $selected = ($row['id_brands'] == $data['id_brands']) ? "selected" : "";
+                            echo "<option value='" . $row['id_brands'] . "' $selected>" . $row['name'] . "</option>";                                                        
                         }
                         ?>
                     </select>

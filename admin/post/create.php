@@ -1,29 +1,54 @@
 <?php
-
 require_once dirname(__DIR__, 2) . '/src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
-$query = "SELECT * FROM posts";
-$result = $conn->query($query);
+$pesan_sukses = "";
+$pesan_error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // var_dump($_POST);
-
     $title = $_POST['title'];
     $published_at = $_POST['date'];
     $body = $_POST['body'];
 
-    try {
-        $sql = "INSERT INTO posts (title, body, published_at) VALUES ('$title', '$body', '$published_at')";
-        $conn->query($sql);
-        echo '<div class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">Data berhasil disimpan</div>';
-    } catch (Exception $e) {
-        echo '<div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">Error: ' . $e->getMessage() . '</div>';
+    // Gambar
+    $gambar = $_FILES['gambar']['name'];
+    $gambar_temp = $_FILES['gambar']['tmp_name'];
+    $gambar_size = $_FILES['gambar']['size'];
+
+    $folder_upload = "../../uploads/";
+    $gambar_unik = uniqid() . '_' . basename($gambar);
+    $path_gambar = $folder_upload . $gambar_unik;
+    $ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
+    $allowed_ext = ['jpg', 'jpeg', 'png'];
+
+    // Validasi gambar
+    if (!getimagesize($gambar_temp)) {
+        $pesan_error = "File yang diunggah bukan gambar.";
+    } elseif (!in_array($ext, $allowed_ext)) {
+        $pesan_error = "Hanya file JPG, JPEG, dan PNG yang diizinkan.";
+    } elseif ($gambar_size > 5242880) {
+        $pesan_error = "Ukuran gambar maksimal 5MB.";
+    } else {
+        // Upload gambar
+        if (move_uploaded_file($gambar_temp, $path_gambar)) {
+            // Insert ke DB pakai prepared statement
+            try {
+                $stmt = $conn->prepare("INSERT INTO posts (title, body, img, published_at) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("ssss", $title, $body, $gambar_unik, $published_at);
+                $stmt->execute();
+
+                $pesan_sukses = "Post berhasil disimpan.";
+            } catch (Exception $e) {
+                $pesan_error = "Error saat menyimpan: " . $e->getMessage();
+            }
+        } else {
+            $pesan_error = "Gagal mengunggah gambar.";
+        }
     }
+
     $conn->close();
 }
-
 ?>
 
 <?php include __DIR__ . "/../../views/components/admin-header.php" ?>
@@ -33,104 +58,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <header class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-                    Tambah post
+                    Tambah Post
                 </h1>
             </div>
         </header>
-        <div class="">
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="space-y-4">
-                <div>
-                    <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
-                    <input type="text" id="title" name="title" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+
+        <!-- Notifikasi -->
+        <?php if (!empty($pesan_sukses)) : ?>
+            <div class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-md"><?= $pesan_sukses ?></div>
+        <?php elseif (!empty($pesan_error)) : ?>
+            <div class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-md"><?= $pesan_error ?></div>
+        <?php endif; ?>
+
+        <!-- Form -->
+        <form method="post" enctype="multipart/form-data" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="space-y-4">    
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
+                <input type="text" id="title" name="title" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Tanggal Diterbitkan</label>
+                <input type="date" id="date" name="date" value="<?= date('Y-m-d'); ?>" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+                <label for="gambar" class="block text-sm font-medium text-gray-700">Gambar</label>
+                <input
+                    id="gambar"
+                    type="file"
+                    name="gambar"
+                    accept="image/*"
+                    required
+                    class="mt-2 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 cursor-pointer" />
+            </div>
+            <div>
+                <label for="editor" class="block mb-2 text-sm font-medium text-gray-700">Konten</label>
+                <div id="editor" class="bg-white border border-gray-300 p-3 rounded-md">
+                    <h2>Demo Content</h2>
+                    <p>Preset build with <code>snow</code> theme, and some common formats.</p>
                 </div>
-                <div>
-                    <label for="date" class="block text-sm font-medium text-gray-700">Tanggal diterbitkan</label>
-                    <input type="date" id="date" name="date" value="<?= date('Y-m-d'); ?>" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                    <label for="image" class="block text-sm font-medium text-gray-700">Foto</label>
-                    <input
-                        id="image"
-                        type="file"
-                        class="mt-2 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 cursor-pointer" />
-                </div>
-                <div>
-                    <label for="editor" class="block mb-2 text-sm font-medium text-gray-700">Konten</label>
-                    <div id="editor">
-                        <h2>Demo Content</h2>
-                        <p>Preset build with <code>snow</code> theme, and some common formats.</p>
-                    </div>
-                    <input type="hidden" name="body" id="hiddenContent">
-                </div>
+                <input type="hidden" name="body" id="hiddenContent">
+            </div>
 
-                <script>
-                    const toolbarOptions = [
-                        ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-                        ['blockquote', 'code-block'],
-                        ['link'],
+            <script>
+                const toolbarOptions = [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    ['link'],
+                    [{ 'header': 1 }, { 'header': 2 }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+                    [{ 'script': 'sub' }, { 'script': 'super' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    [{ 'direction': 'rtl' }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'font': [] }],
+                    [{ 'align': [] }],
+                    ['clean']
+                ];
 
-                        [{
-                            'header': 1
-                        }, {
-                            'header': 2
-                        }], // custom button values
-                        [{
-                            'list': 'ordered'
-                        }, {
-                            'list': 'bullet'
-                        }, {
-                            'list': 'check'
-                        }],
-                        [{
-                            'script': 'sub'
-                        }, {
-                            'script': 'super'
-                        }], // superscript/subscript
-                        [{
-                            'indent': '-1'
-                        }, {
-                            'indent': '+1'
-                        }], // outdent/indent
-                        [{
-                            'direction': 'rtl'
-                        }], // text direction
+                const quill = new Quill('#editor', {
+                    modules: { toolbar: toolbarOptions },
+                    theme: 'snow'
+                });
 
-                        [{
-                            'size': ['small', false, 'large', 'huge']
-                        }], // custom dropdown
-                        [{
-                            'header': [1, 2, 3, 4, 5, 6, false]
-                        }],
+                document.querySelector('form').onsubmit = function () {
+                    document.querySelector('#hiddenContent').value = quill.root.innerHTML;
+                };
+            </script>
 
-                        [{
-                            'color': []
-                        }, {
-                            'background': []
-                        }], // dropdown with defaults from theme
-                        [{
-                            'font': []
-                        }],
-                        [{
-                            'align': []
-                        }],
-
-                        ['clean'] // remove formatting button
-                    ];
-
-                    const quill = new Quill('#editor', {
-                        modules: {
-                            toolbar: toolbarOptions
-                        },
-                        theme: 'snow'
-                    });
-
-                    document.querySelector('form').onsubmit = function() {
-                        document.querySelector('#hiddenContent').value = quill.root.innerHTML;
-                    };
-                </script>
-                <button type="submit" class="w-full font-semibold bg-primary/90 text-white py-2 px-4 rounded-md hover:bg-primary cursor-pointer">Simpan</button>
-            </form>
-        </div>
+            <button type="submit" class="w-full font-semibold bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 cursor-pointer">
+                Simpan
+            </button>
+        </form>
     </section>
 </main>
 
