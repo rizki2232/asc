@@ -3,7 +3,7 @@ require_once 'src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
-$query = "SELECT * FROM posts ORDER BY published_at DESC LIMIT 3";
+$query = "SELECT * FROM posts ORDER BY id_posts DESC LIMIT 3";
 $result = $conn->query($query);
 ?>
 
@@ -46,7 +46,7 @@ $result = $conn->query($query);
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php while ($row = $result->fetch_assoc()): ?>
-                <a href="post.php?id=<?= $row['id_posts'] ?>">
+                <a href="post.php?id_posts=<?= $row['id_posts'] ?>">
                     <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
                         <div class="h-52 w-full bg-cover bg-center rounded-t-xl" style="background-image: url('uploads/<?= htmlspecialchars($row['img']) ?>');"></div>
 

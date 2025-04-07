@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__, 2) . '/src/db/connection.php';
+require_once dirname(__DIR__, 1) . '/src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
@@ -12,7 +12,7 @@ $no = 1;
 
 ?>
 
-<?php include __DIR__ . "/../../views/components/admin-header.php" ?>
+<?php include __DIR__ . "/../views/components/admin-header.php" ?>
 
 <main class="main mx-auto h-full w-full px-4 md:px-6 lg:px-8 max-w-7xl bg-white shadow">
     <section class="flex flex-col gap-y-8 py-8">
@@ -108,4 +108,4 @@ $no = 1;
     </section>
 </main>
 
-<?php include __DIR__ . "/../../views/components/admin-footer.php" ?>
+<?php include __DIR__ . "/../views/components/admin-footer.php" ?>
