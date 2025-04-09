@@ -8,7 +8,7 @@ $links = [
     ],
     [
         'title' => 'Artikel',
-        'route' => '/artikel',
+        'route' => '/artikel.php',
         'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>'
     ],
     [
@@ -25,7 +25,7 @@ $current_page = $_SERVER['REQUEST_URI'];
 <header x-data="{ navOpen: false }" class="fixed top-0 left-0 right-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-primary/80 backdrop-blur-sm shadow dark:bg-neutral-800 dark:border-neutral-700">
     <nav class="relative max-w-7xl w-full mx-auto md:flex md:items-center md:justify-between md:gap-3 py-2 px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center gap-x-1">
-            <a href="" class="relative mr-6 flex items-center space-x-2 fill-primary text-white">
+            <a href="index.php" class="relative mr-6 flex items-center space-x-2 fill-primary text-white">
                 <svg
                     version="1.0"
                     xmlns="http://www.w3.org/2000/svg"

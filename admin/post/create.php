@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $published_at = $_POST['date'];
     $body = $_POST['body'];
 
-    // Gambar
+
     $gambar = $_FILES['gambar']['name'];
     $gambar_temp = $_FILES['gambar']['tmp_name'];
     $gambar_size = $_FILES['gambar']['size'];
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
     $allowed_ext = ['jpg', 'jpeg', 'png'];
 
-    // Validasi gambar
+
     if (!getimagesize($gambar_temp)) {
         $pesan_error = "File yang diunggah bukan gambar.";
     } elseif (!in_array($ext, $allowed_ext)) {
@@ -30,9 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($gambar_size > 5242880) {
         $pesan_error = "Ukuran gambar maksimal 5MB.";
     } else {
-        // Upload gambar
+
         if (move_uploaded_file($gambar_temp, $path_gambar)) {
-            // Insert ke DB pakai prepared statement
             try {
                 $stmt = $conn->prepare("INSERT INTO posts (title, body, img, published_at) VALUES (?, ?, ?, ?)");
                 $stmt->bind_param("ssss", $title, $body, $gambar_unik, $published_at);

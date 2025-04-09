@@ -3,9 +3,10 @@ require_once 'src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
-$query = "SELECT * FROM posts ORDER BY id_posts DESC LIMIT 3";
+$query = "SELECT * FROM posts ORDER BY id_posts DESC LIMIT 9";
 $result = $conn->query($query);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,30 +21,11 @@ $result = $conn->query($query);
 
 <body>
     <?php include __DIR__ . "/views/components/header.php" ?>
+    <main class="pt-24">
+        <h1 class="text-center text-3xl font-extrabold mb-6">Berita</h1>
+    </main>
+    <section class="container px-8  lg:py-12 mx-auto">
 
-    <div class="relative min-h-screen flex items-start bg-[url('../img/background.png')] bg-center bg-cover bg-no-repeat md:items-center overflow-hidden">
-        <div class="container mx-auto flex flex-col md:flex-row items-start md:items-center justify-between w-10/12 px-4 pt-24 relative">
-            <div class="text-left text-white">
-                <h1 class="text-5xl font-bold leading-tight">Delivering Trust,</h1>
-                <h1 class="text-5xl font-bold leading-tight">
-                    <span class="text-yellow-400">Connecting</span> the Future
-                </h1>
-            </div>
-        </div>
-        <img src="src/img/mobil.png" alt="Mobil" class="absolute bottom-0 right-0 w-auto h-1/2 md:h-2/3 md:max-w-[80%] max-h-3/4 -mr-6 object-cover object-left-top">
-
-        <!-- Ombak di Bagian Bawah -->
-        <div class="absolute bottom-0 left-0 w-full">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#FFFFFF" fill-opacity="1" d="M0,288L80,266.7C160,245,320,203,480,208C640,213,800,267,960,277.3C1120,288,1280,256,1360,240L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-            </svg>
-        </div>
-    </div>
-
-    <section class="container px-8 py-10 lg:py-14 mx-auto">
-        <div class="text-center text-3xl font-extrabold mb-6">
-            Artikel Terbaru
-        </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php while ($row = $result->fetch_assoc()): ?>
                 <a href="detailArtikel.php?id_posts=<?= $row['id_posts'] ?>">
@@ -66,6 +48,8 @@ $result = $conn->query($query);
             <?php endwhile; ?>
         </div>
     </section>
+
+
 
     <?php include __DIR__ . "/views/components/footer.php" ?>
 </body>

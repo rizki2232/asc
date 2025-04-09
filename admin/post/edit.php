@@ -4,10 +4,10 @@ require_once dirname(__DIR__, 2) . '/src/db/connection.php';
 $db = new Database();
 $conn = $db->conn;
 
-$id = $_GET['id'];
+$id = $_GET['id_posts'];
 
 // Ambil data mobil berdasarkan ID
-$query = "SELECT * FROM posts WHERE id = '$id'";
+$query = "SELECT * FROM posts WHERE id_posts = '$id'";
 $result = $conn->query($query);
 $data = $result->fetch_assoc();
 
@@ -25,8 +25,9 @@ $data = $result->fetch_assoc();
             </div>
         </header>
         <div class="">
-            <form method="post" action="update.php" class="space-y-4">
-                <input type="hidden" name="id" value="<?= htmlspecialchars($data['id']) ?>">
+            <form method="post" action="update.php" enctype="multipart/form-data" class="space-y-4">
+
+                <input type="hidden" name="id_posts" value="<?= htmlspecialchars($data['id_posts']) ?>">
 
                 <div>
                     <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
@@ -34,20 +35,22 @@ $data = $result->fetch_assoc();
                 </div>
                 <div>
                     <label for="date" class="block text-sm font-medium text-gray-700">Tanggal diterbitkan</label>
-                    <input type="date" id="date" name="date" value="<?=date('Y-m-d', strtotime($data['published_at'])) ?>" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <input type="date" id="date" name="date" value="<?= date('Y-m-d', strtotime($data['published_at'])) ?>" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div>
-                    <label for="image" class="block text-sm font-medium text-gray-700">Foto</label>
+                    <label for="gambar" class="block text-sm font-medium text-gray-700">Gambar</label>
                     <input
-                    id="image"
-                    type="file"
-                    class="mt-2 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 cursor-pointer" />
+                        id="gambar"
+                        type="file"
+                        name="gambar"
+                        accept="image/*"
+                        class="mt-2 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 cursor-pointer" />
                 </div>
 
                 <div>
                     <label for="editor" class="block mb-2 text-sm font-medium text-gray-700">Konten</label>
                     <div id="editor">
-                    <?= htmlspecialchars_decode($data['body']) ?>
+                        <?= htmlspecialchars_decode($data['body']) ?>
                     </div>
                     <input type="hidden" name="body" id="hiddenContent">
                 </div>

@@ -12,7 +12,7 @@ $query = "SELECT
         cars.year, 
         cars.date
         FROM cars 
-        JOIN brands ON cars.brand_id = brands.id_brands;";
+        JOIN brands ON cars.id_brands = brands.id_brands;";
 $result = $conn->query($query);
 
 $thead = ['No', 'Merek', 'Jenis', 'Warna', 'Tahun', 'Tanggal Masuk'];
