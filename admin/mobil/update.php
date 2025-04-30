@@ -12,10 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST['year'];
     $quantity = $_POST['quantity'];
 
-    $sql = "UPDATE cars SET id_brands=?, type=?, color=?, date=?, year=?, quantity=? WHERE id_cars=?";
+    $sql = "UPDATE cars SET brand_id=?, type=?, color=?, date=?, year=?, quantity=? WHERE id_cars=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isssiii", $id_brands, $type, $color, $date, $year, $quantity, $id);
-    
+
+
     if ($stmt->execute()) {
         echo "<script>alert('Data mobil berhasil diperbarui!'); window.location.href='/admin/cars.php';</script>";
     } else {

@@ -5,15 +5,22 @@ $db = new Database();
 $conn = $db->conn;
 
 $query = "SELECT 
-        cars.id_cars ,
+        cars.id_cars,
         brands.name AS brand_name,
         cars.type, 
         cars.color, 
         cars.year, 
+        cars.quantity,
         cars.date
         FROM cars 
-        JOIN brands ON cars.id_brands = brands.id_brands;";
+        JOIN brands ON cars.id_brands = brands.id_brands";
+
 $result = $conn->query($query);
+
+if (!$result) {
+    die("Query error: " . $conn->error);
+}
+
 
 $thead = ['No', 'Merek', 'Jenis', 'Warna', 'Tahun', 'Tanggal Masuk'];
 $no = 1;

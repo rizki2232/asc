@@ -34,16 +34,17 @@ $brandResult = $conn->query($brandQuery);
 
                 <div>
                     <label for="id_brands" class="block text-sm font-medium text-gray-700">Merek Mobil</label>
-                    <select id="id_brands" name="id_brands" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <select id="id_brands" name="id_brands" required disabled class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 cursor-not-allowed focus:ring-blue-500 focus:border-blue-500">
                         <option value="" disabled>Pilih Merek Mobil</option>
                         <?php
                         while ($row = $brandResult->fetch_assoc()) {
                             $selected = ($row['id_brands'] == $data['id_brands']) ? "selected" : "";
-                            echo "<option value='" . $row['id_brands'] . "' $selected>" . $row['name'] . "</option>";                                                        
+                            echo "<option value='" . $row['id_brands'] . "' $selected>" . $row['name'] . "</option>";
                         }
                         ?>
                     </select>
                 </div>
+
 
                 <div>
                     <label for="type" class="block text-sm font-medium text-gray-700">Jenis Mobil</label>

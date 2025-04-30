@@ -1,18 +1,19 @@
-import defaultTheme from "tailwindcss/defaultTheme";
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "/**/*.{html, php}",
+    "./*.php",
+    "./views/**/*.php",
+    "./src/**/*.{html,js}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#00137D",
+        primary: "#11235A",
       },
       fontFamily: {
-        sans: ["Onest", ...defaultTheme.fontFamily.sans],
+        sans: ["Onest", "sans-serif"],
       },
     },
   },
-};
+  plugins: [],
+}

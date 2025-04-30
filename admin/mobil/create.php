@@ -66,7 +66,7 @@ $result = $conn->query($query);
         require_once dirname(__DIR__, 2) . '/src/db/connection.php';
         $db = new Database();
         $conn = $db->conn;
-        
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id_brands = $_POST['id_brands'];  // Ambil ID merek yang dipilih
             $type = $_POST['type'];
@@ -80,9 +80,9 @@ $result = $conn->query($query);
                 echo '<div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">Jumlah mobil harus lebih dari 0</div>';
             } else {
                 // Perbaiki query INSERT agar sesuai dengan database
-                $sql = "INSERT INTO cars (id_cars, id_brands, type, color, quantity, year, date) 
-                         VALUES (NULL, '$id_brands', '$type', '$color', '$quantity', '$year', '$date')";
-                if ($conn->query($sql) === TRUE) {  
+                $sql = "INSERT INTO cars (id_cars, brand_id, type, color, quantity, year, date) 
+                VALUES (NULL, '$id_brands', '$type', '$color', '$quantity', '$year', '$date')";
+                if ($conn->query($sql) === TRUE) {
                     echo '<div class="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">Data berhasil disimpan</div>';
                 } else {
                     echo '<div class="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md">Error: ' . $conn->error . '</div>';

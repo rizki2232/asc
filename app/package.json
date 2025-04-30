@@ -1,0 +1,29 @@
+{
+  "name": "asc",
+  "version": "1.0.0",
+  "description": "ASC Transportation Company Profile Website.",
+  "main": "index.php",
+"scripts": {
+  "dev": "npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/app.css --watch",
+  "build:css": "npx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/app.css"
+}
+
+,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizki2232/asc.git"
+  },
+  "keywords": [
+    "asc"
+  ],
+  "author": "rizki2232",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rizki2232/asc/issues"
+  },
+  "homepage": "https://github.com/rizki2232/asc#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.13",
+    "tailwindcss": "^4.0.13"
+  }
+}

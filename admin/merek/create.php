@@ -5,14 +5,14 @@ $db = new Database();
 $conn = $db->conn;
 
 $query = "SELECT 
-        cars.id_cars,
-        brands.name AS brand_name,
-        cars.type, 
-        cars.color, 
-        cars.year, 
-        cars.date
-        FROM cars 
-        JOIN brands ON cars.id_brands = brands.id_brands;";
+    cars.id_cars,
+    brands.name AS brand_name,
+    cars.type, 
+    cars.color, 
+    cars.year, 
+    cars.date
+FROM cars 
+JOIN brands ON cars.brand_id = brands.id_brands ;";
 $result = $conn->query($query);
 
 $thead = ['No', 'Merek', 'Jenis', 'Warna', 'Tahun', 'Tanggal Masuk'];
@@ -44,7 +44,7 @@ $no = 1;
             require_once dirname(__DIR__, 2) . '/src/db/connection.php';
             $db = new Database();
             $conn = $db->conn;
-            
+
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $data = $_POST['brand'];
 

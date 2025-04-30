@@ -1,0 +1,17 @@
+{
+    "name": "asus/acs-docker",
+    "autoload": {
+        "psr-4": {
+            "Asus\\AcsDocker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "E41221941 Rizki Makhfud Nur'Atsani",
+            "email": "e41221941@student.polije.ac.id"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
+}
