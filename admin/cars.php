@@ -5,15 +5,15 @@ $db = new Database();
 $conn = $db->conn;
 
 $query = "SELECT 
-        cars.id_cars,
-        brands.name AS brand_name,
-        cars.type, 
-        cars.color, 
-        cars.year, 
-        cars.quantity,
-        cars.date
+            cars.id_cars,
+            brands.name AS brand_name,
+            cars.type, 
+            cars.color, 
+            cars.year, 
+            cars.quantity,
+            cars.date
         FROM cars 
-        JOIN brands ON cars.id_brands = brands.id_brands";
+        JOIN brands ON cars.brand_id = brands.id_brands;";
 
 $result = $conn->query($query);
 
@@ -75,42 +75,42 @@ $no = 1;
                             <?php while ($row = $result->fetch_assoc()) : ?>
                                 <tr class="hover:bg-gray-50">
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id_cars']; ?>">
+                                        <a href="mobil/edit.php?id_cars=<?php echo $row['id_cars']; ?>">
                                             <div class="px-3 py-4">
                                                 <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $no++; ?></span>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id_cars']; ?>">
+                                        <a href="mobil/edit.php?id_cars=<?php echo $row['id_cars']; ?>">
                                             <div class="px-3 py-4">
                                                 <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['brand_name']; ?></span>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id_cars']; ?>">
+                                        <a href="mobil/edit.php?id_cars=<?php echo $row['id_cars']; ?>">
                                             <div class="px-3 py-4">
                                                 <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['type']; ?></span>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id_cars']; ?>">
+                                        <a href="mobil/edit.php?id_cars=<?php echo $row['id_cars']; ?>">
                                             <div class="px-3 py-4">
                                                 <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['color']; ?></span>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id_cars']; ?>">
+                                        <a href="mobil/edit.php?id_cars=<?php echo $row['id_cars']; ?>">
                                             <div class="px-3 py-4">
                                                 <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= $row['year']; ?></span>
                                             </div>
                                         </a>
                                     </td>
                                     <td class="p-0 first-of-type:ps-1 last-of-type:pe-1 sm:first-of-type:ps-3 sm:last-of-type:pe-3">
-                                        <a href="edit.php?id=<?php echo $row['id_cars']; ?>">
+                                        <a href="mobil/edit.php?id_cars=<?php echo $row['id_cars']; ?>">
                                             <div class="px-3 py-4">
                                                 <span class="text-sm leading-6 text-gray-950 dark:text-white font-medium"><?= date("d/m/Y", strtotime($row['date'])); ?></span>
                                             </div>

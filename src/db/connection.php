@@ -1,9 +1,9 @@
 <?php
 class Database
 {
-    private $host = "localhost"; // ganti dari 127.0.0.1 jadi nama servicenya
+    private $host = "db"; // ganti dari 127.0.0.1 jadi nama servicenya
     private $username = "root";
-    private $password = "";
+    private $password = "root";
     private $db = "acs";
     public $conn;
 
